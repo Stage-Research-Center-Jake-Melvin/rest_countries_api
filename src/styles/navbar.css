@@ -1,0 +1,30 @@
+/*Gestion du style du navbar*/
+.app__navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 4rem;
+  align-items: center;
+  font-size: var(--home-font-size);
+  font-family: var(--font-family);
+}
+.app__navbar-title {
+  font-size: 1.25em;
+  font-weight: 800;
+}
+.app__navbar-mode {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+}
+/**/
+/*Gestion du responsive*/
+@media screen and (max-width: 28.125rem) {
+  .app__navbar {
+    padding: 1rem 1rem;
+    font-size: 0.75em;
+  }
+  .app__navbar-title {
+    font-size: 0.9375em;
+  }
+}
