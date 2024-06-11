@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { ColorMode } from ".";
+import { ColorMode } from "../pages";
 
 interface ChangeMode {
   modeActuel: ColorMode;

@@ -39,11 +39,19 @@ body {
 }
 .container_dark {
   background-color: var(--dark-blue);
-  border-bottom: 0.18rem solid var(--very-dark-blue-dark-mode);
 }
 .container_light {
   background-color: var(--white);
-  border-bottom: 0.18rem solid var(--dark-gray);
+}
+.section_dark {
+  /*Temporary height will be removed later*/
+  height: 100vh;
+  background-color: var(--very-dark-blue-dark-mode);
+}
+.section_light {
+  /*Temporary height will be removed later*/
+  height: 100vh;
+  background-color: var(--very-light-gray);
 }
 
 @layer utilities {
