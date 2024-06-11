@@ -4,14 +4,12 @@
   justify-content: space-between;
   padding: 2rem 4rem;
   align-items: center;
-  background-color: var(--dark-blue);
   font-size: var(--home-font-size);
   font-family: var(--font-family);
-  border-bottom: 1px solid var(--very-dark-blue-dark-mode);
 }
 .app__navbar-title {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 1.25em;
+  font-weight: 800;
 }
 .app__navbar-mode {
   display: flex;
@@ -19,13 +17,14 @@
   align-items: center;
   cursor: pointer;
 }
+/**/
 /*Gestion du responsive*/
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 28.125rem) {
   .app__navbar {
     padding: 1rem 1rem;
-    font-size: 12px;
+    font-size: 0.75em;
   }
   .app__navbar-title {
-    font-size: 15px;
+    font-size: 0.9375em;
   }
 }

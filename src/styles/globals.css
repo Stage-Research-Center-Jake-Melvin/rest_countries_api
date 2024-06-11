@@ -6,8 +6,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --home-font-size: 14px;
-  --detail-page-size: 16px;
+  --home-font-size: 0.875em;
+  --detail-page-size: 1em;
   --font-family: "Nunito Sans", sans-serif;
   --dark-blue: hsl(209, 23%, 22%);
   --very-dark-blue-dark-mode: hsl(207, 26%, 17%);
@@ -33,6 +33,17 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+.light {
+  color: var(--very-dark-blue-light-mode);
+}
+.container_dark {
+  background-color: var(--dark-blue);
+  border-bottom: 0.18rem solid var(--very-dark-blue-dark-mode);
+}
+.container_light {
+  background-color: var(--white);
+  border-bottom: 0.18rem solid var(--dark-gray);
 }
 
 @layer utilities {
