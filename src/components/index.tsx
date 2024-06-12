@@ -1,4 +1,4 @@
-import NavBar from "./NavBar/NavBar";
-import MainSection from "./MainSection/MainSection";
+import NavBar from "./NavBar";
+import MainSection from "./MainSection";
 
 export { NavBar, MainSection };

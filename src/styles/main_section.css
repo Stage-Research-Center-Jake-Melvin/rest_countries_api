@@ -39,6 +39,7 @@
   cursor: pointer;
   height: 4rem;
   width: 12rem;
+  text-transform: capitalize;
 }
 .app__section-filter-content {
   margin-top: 1rem;
