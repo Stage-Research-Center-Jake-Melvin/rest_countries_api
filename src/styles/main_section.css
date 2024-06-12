@@ -1,0 +1,80 @@
+/*Managing the design of the search section*/
+.app__section-full-search {
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+  font-family: var(--font-family);
+}
+/*Designing the search inut area*/
+.app__section-search {
+  padding: 1rem;
+  display: flex;
+  gap: 0.55rem;
+  width: 35rem;
+  border-radius: 0.25rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.app__section-search input {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+}
+/*Designing the dropdown menu for filtering*/
+.app__section-filter {
+  display: flex;
+  flex-direction: column;
+}
+.app__section-filter-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  height: 4rem;
+  width: 12rem;
+  text-transform: capitalize;
+}
+.app__section-filter-content {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  flex-direction: column;
+  display: none;
+}
+.app__section-filter-content p {
+  cursor: pointer;
+}
+/*Animations*/
+/*Managing the responsivness of the website*/
+@media screen and (max-width: 65.625rem) {
+  .app__section-search {
+    width: 20rem;
+  }
+}
+@media screen and (max-width: 40.625rem) {
+  .app__section-full-search {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .app__section-search {
+    width: 100%;
+  }
+  .app__section-filter-main {
+    width: 15rem;
+  }
+}
+@media screen and (max-width: 28.125rem) {
+  .app__section-full-search {
+    padding: 1rem 1rem;
+  }
+  .app__section-filter-main {
+    width: 12rem;
+  }
+}

@@ -1,18 +1,29 @@
-import Image from "next/image";
+import React, { useState } from "react";
 import { Inter } from "next/font/google";
-import Navbar from "./navabar";
-import { useState } from "react";
-export type ColorMode = "Dark Mode" | "Light Mode";
+import { MainSection, NavBar } from "@/components";
+import { ThemeContext } from "@/context/context";
+
+/*Types*/
+export type Theme = "Dark Mode" | "Light Mode";
+export type Continent = "africa" | "america" | "asia" | "europe" | "oceania";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [modeActuel, setModeActuel] = useState<ColorMode>("Dark Mode");
+  const [currentTheme, setCurrentTheme] = useState<Theme>("Dark Mode");
+  const [showFilter, setShowFilter] = useState<boolean>(false);
+  const [selectedContinent, setSelectedContinent] = useState<Continent>();
   return (
-    <main className="app__main">
-      <Navbar
-        modeActuel={modeActuel}
-        toggleFunction={setModeActuel}
-      />
-    </main>
+    <ThemeContext.Provider value={currentTheme}>
+      <main className="app__main">
+        <NavBar toggleFunction={setCurrentTheme} />
+        <MainSection
+          showFilter={showFilter}
+          setShowFilter={setShowFilter}
+          selectedContinent={selectedContinent}
+          changeContinent={setSelectedContinent}
+        />
+      </main>
+    </ThemeContext.Provider>
   );
 }
