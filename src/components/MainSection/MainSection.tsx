@@ -1,24 +1,33 @@
-import { ColorMode } from "../pages";
-import React from "react";
+import { ThemeContext } from "@/context/context";
+import { Theme } from "../../pages";
+import React, { Dispatch, SetStateAction, useContext } from "react";
 interface SectionElements {
-  modeActuel: ColorMode;
+  showFilter: boolean;
+  setShowFilter: Dispatch<SetStateAction<boolean>>;
 }
-
-function MainSection({ modeActuel }: SectionElements) {
+function MainSection({ showFilter, setShowFilter }: SectionElements) {
+  function displayFilter(): void {
+    if (showFilter) {
+      setShowFilter(false);
+    } else {
+      setShowFilter(true);
+    }
+  }
+  let currentTheme = useContext(ThemeContext);
   return (
     <div
       className={`app__section ${
-        modeActuel == "Dark Mode" ? "section_dark" : "section_light"
+        currentTheme == "Dark Mode" ? "section_dark" : "section_light"
       }`}
     >
       <div
         className={`app__section-full-search ${
-          modeActuel == "Dark Mode" ? "dark" : "light"
+          currentTheme == "Dark Mode" ? "dark" : "light"
         }`}
       >
         <div
           className={`app__section-search ${
-            modeActuel == "Dark Mode" ? "container_dark" : "container_light"
+            currentTheme == "Dark Mode" ? "container_dark" : "container_light"
           }`}
         >
           <label htmlFor="search_tab">
@@ -32,16 +41,18 @@ function MainSection({ modeActuel }: SectionElements) {
         </div>
         <div className={`app__section-filter`}>
           <div
+            onClick={displayFilter}
             className={`app__section-filter-main ${
-              modeActuel == "Dark Mode" ? "container_dark" : "container_light"
+              currentTheme == "Dark Mode" ? "container_dark" : "container_light"
             }`}
           >
             <p>Filter by Region</p>
             <i className="fa-solid fa-chevron-down"></i>
           </div>
           <div
+            style={{ display: `${showFilter ? "flex" : "none"}` }}
             className={`app__section-filter-content ${
-              modeActuel == "Dark Mode" ? "container_dark" : "container_light"
+              currentTheme == "Dark Mode" ? "container_dark" : "container_light"
             }`}
           >
             <p>Africa</p>

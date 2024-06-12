@@ -1,18 +1,23 @@
-import Image from "next/image";
+import { MainSection, NavBar } from "@/components";
+import { ThemeContext } from "@/context/context";
 import { Inter } from "next/font/google";
-import Navbar from "../components/navabar";
-import { useState } from "react";
-import Link from "next/link";
-import MainSection from "../components/main_section";
-export type ColorMode = "Dark Mode" | "Light Mode";
+import React, { useState } from "react";
+
+/*Types*/
+export type Theme = "Dark Mode" | "Light Mode";
+
+
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [modeActuel, setModeActuel] = useState<ColorMode>("Dark Mode");
+  const [currentTheme, setCurrentTheme] = useState<Theme>("Dark Mode");
+  const [showFilter, setShowFilter] = useState<boolean>(false);
   return (
-    <main className="app__main">
-      <Navbar modeActuel={modeActuel} toggleFunction={setModeActuel} />
-      <MainSection modeActuel={modeActuel} />
-    </main>
+    <ThemeContext.Provider value={currentTheme}>
+      <main className="app__main">
+        <NavBar toggleFunction={setCurrentTheme} />
+        <MainSection showFilter={showFilter} setShowFilter={setShowFilter} />
+      </main>
+    </ThemeContext.Provider>
   );
 }
