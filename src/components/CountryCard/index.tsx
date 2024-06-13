@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import Image from "next/image";
 import { ThemeContext } from "@/context/context";
-import { Theme } from "@mui/joy";
+
 interface CountryCardProps {
   countryCode: string;
   countryName: string;
@@ -19,7 +18,15 @@ function CountryCard({
   countryCapital,
   countryFlag,
 }: CountryCardProps) {
+
   let currentTheme = useContext(ThemeContext);
+  
+  const formatCapitalsDisplay = (capitals: string[]): string => {
+    if (!capitals || capitals.length === 0) return "";
+
+    return capitals.join(", ");
+  };
+
   return (
     <div className="app__country-card">
       <div className="app__country-card_flag">
@@ -41,14 +48,7 @@ function CountryCard({
         </p>
         <p>
           <span>Capital: </span>
-          {countryCapital
-            ? countryCapital.length > 1
-              ? `${countryCapital.forEach((capital, index) => {
-                  if (index != countryCapital.length - 1) return `${capital}, `;
-                  return `${capital}`;
-                })}`
-              : `${countryCapital[0]}`
-            : ""}
+          {formatCapitalsDisplay(countryCapital)}
         </p>
       </div>
     </div>
