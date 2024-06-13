@@ -4,14 +4,27 @@ import React, {
   SetStateAction,
   useContext,
 } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { fetchAllCountries } from "@/server/actions";
 import { ThemeContext } from "@/context/context";
 import { Continent, Theme } from "../../pages";
+import { CircularProgress } from "@mui/joy";
+import CountryCard from "../CountryCard";
 
 interface SectionElements {
   showFilter: boolean;
   setShowFilter: Dispatch<SetStateAction<boolean>>;
   selectedContinent: Continent | undefined;
   changeContinent: Dispatch<SetStateAction<Continent | undefined>>;
+}
+
+interface Country {
+  flags: { png: string };
+  name: { common: string };
+  cca3: string;
+  population: number;
+  region: string;
+  capital: string[];
 }
 
 function MainSection({
@@ -32,6 +45,12 @@ function MainSection({
     changeContinent(continent);
     setShowFilter(false);
   }
+  const { data, isLoading } = useQuery({
+    queryKey: ["countries"],
+    queryFn: fetchAllCountries,
+  });
+  console.log("Here is the data");
+  console.log(data);
   return (
     <div
       className={`app__section ${
@@ -85,7 +104,30 @@ function MainSection({
           </div>
         </div>
       </div>
-      
+      {isLoading ? (
+        <div className="app__section-loading-countries">
+          <CircularProgress size="lg" variant="plain" />
+        </div>
+      ) : data ? (
+        <div className="app__section-grid-countries">
+          {data.map((country: Country) => {
+            return (
+              <CountryCard
+                countryFlag={country.flags["png"]}
+                countryName={country.name["common"]}
+                countryCode={country["cca3"]}
+                countryPopulation={country.population}
+                countryRegion={country.region}
+                countryCapital={country.capital}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <div>
+          <p>An Error occured and the data has not been fetched correctly</p>
+        </div>
+      )}
     </div>
   );
 }

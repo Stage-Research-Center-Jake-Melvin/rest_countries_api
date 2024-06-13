@@ -1,0 +1,38 @@
+/*Designing the cards*/
+.app__country-card_flag img {
+  width: 20rem;
+  height: 12rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+.app__country-card_info-section {
+  width: 20rem;
+  height: 13rem;
+  padding: 1rem;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+}
+.app__country-card-title {
+  padding: 1rem 0;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+.app__country-card_info-section span {
+  font-weight: bold;
+}
+.app__country-card_info-section p {
+  padding: 0.2rem;
+}
+
+/*Managing the responsivness*/
+
+@media screen and (max-width: 21.875rem) {
+  .app__country-card_flag img {
+    width: 15rem;
+    height: 10rem;
+  }
+  .app__country-card_info-section {
+    width: 15rem;
+    height: 12rem;
+  }
+}
