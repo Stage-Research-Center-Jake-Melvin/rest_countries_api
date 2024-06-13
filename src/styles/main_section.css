@@ -1,3 +1,9 @@
+/*Managing the common styles of the entire main section*/
+.app__section {
+  font-family: var(--font-family);
+  font-size: var(--home-font-size);
+}
+
 /*Managing the design of the search section*/
 .app__section-full-search {
   padding: 2rem 4rem;
@@ -24,6 +30,7 @@
   border: none;
   background: none;
   outline: none;
+  font-family: var(--font-family);
 }
 /*Designing the dropdown menu for filtering*/
 .app__section-filter {
@@ -51,7 +58,21 @@
 .app__section-filter-content p {
   cursor: pointer;
 }
-/*Animations*/
+.app__section-loading-countries {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.app__section-grid-countries {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 2.5rem;
+  row-gap: 3.5rem;
+}
+
 /*Managing the responsivness of the website*/
 @media screen and (max-width: 65.625rem) {
   .app__section-search {
@@ -76,5 +97,8 @@
   }
   .app__section-filter-main {
     width: 12rem;
+  }
+  .app__section-grid-countries {
+    padding: 1rem 1rem;
   }
 }

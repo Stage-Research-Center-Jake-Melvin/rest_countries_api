@@ -1,17 +1,25 @@
-import React, {
-  Dispatch,
-  MouseEventHandler,
-  SetStateAction,
-  useContext,
-} from "react";
+import React, { Dispatch, SetStateAction, useContext, useMemo } from "react";
 import { ThemeContext } from "@/context/context";
-import { Continent, Theme } from "../../pages";
+import { useQuery } from "@tanstack/react-query";
+import { fetchAllCountries } from "@/server/actions";
+import { CircularProgress } from "@mui/joy";
+import { Region } from "../../pages";
+import CountryCard from "../CountryCard";
 
 interface SectionElements {
   showFilter: boolean;
   setShowFilter: Dispatch<SetStateAction<boolean>>;
-  selectedContinent: Continent | undefined;
-  changeContinent: Dispatch<SetStateAction<Continent | undefined>>;
+  selectedContinent: Region | undefined;
+  changeContinent: Dispatch<SetStateAction<Region | undefined>>;
+}
+
+interface Country {
+  flags: { png: string };
+  name: { common: string };
+  cca3: string;
+  population: number;
+  region: string;
+  capital: string[];
 }
 
 function MainSection({
@@ -28,8 +36,14 @@ function MainSection({
     }
   }
   let currentTheme = useContext(ThemeContext);
-  function chooseContinent(continent: Continent): void {
-    changeContinent(continent);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["countries"],
+    queryFn: fetchAllCountries,
+  });
+
+  function chooseContinent(region: Region): void {
+    changeContinent(region);
     setShowFilter(false);
   }
   return (
@@ -77,15 +91,49 @@ function MainSection({
               currentTheme == "Dark Mode" ? "container_dark" : "container_light"
             }`}
           >
-            <p onClick={() => chooseContinent("africa")}>Africa</p>
-            <p onClick={() => chooseContinent("america")}>America</p>
-            <p onClick={() => chooseContinent("asia")}>Asia</p>
-            <p onClick={() => chooseContinent("europe")}>Europe</p>
-            <p onClick={() => chooseContinent("oceania")}>Oceania</p>
+            <p onClick={() => chooseContinent("All")}>All</p>
+            <p onClick={() => chooseContinent("Africa")}>Africa</p>
+            <p onClick={() => chooseContinent("Americas")}>America</p>
+            <p onClick={() => chooseContinent("Asia")}>Asia</p>
+            <p onClick={() => chooseContinent("Europe")}>Europe</p>
+            <p onClick={() => chooseContinent("Oceania")}>Oceania</p>
           </div>
         </div>
       </div>
-      
+      {isLoading ? (
+        <div className="app__section-loading-countries">
+          <CircularProgress size="lg" variant="plain" />
+        </div>
+      ) : data ? (
+        <div className="app__section-grid-countries">
+          {data
+            .filter((country: Country) => {
+              if (selectedContinent && selectedContinent != "All") {
+                if (country.region == selectedContinent) {
+                  return country;
+                }
+              } else {
+                return country;
+              }
+            })
+            .map((country: Country) => {
+              return (
+                <CountryCard
+                  countryFlag={country.flags["png"]}
+                  countryName={country.name["common"]}
+                  countryCode={country["cca3"]}
+                  countryPopulation={country.population}
+                  countryRegion={country.region}
+                  countryCapital={country.capital}
+                />
+              );
+            })}
+        </div>
+      ) : (
+        <div>
+          <p>An Error occured and the data has not been fetched correctly</p>
+        </div>
+      )}
     </div>
   );
 }
