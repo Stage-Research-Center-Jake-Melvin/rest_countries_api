@@ -62,6 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 80vh;
 }
 .app__section-grid-countries {
   padding: 2rem;
@@ -71,6 +72,16 @@
   flex-wrap: wrap;
   column-gap: 2.5rem;
   row-gap: 3.5rem;
+  min-height: 80vh;
+}
+.app__section-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 2rem;
+  color: red;
+  font-weight: bold;
+  min-height: 80vh;
 }
 
 /*Managing the responsivness of the website*/
