@@ -1,7 +1,7 @@
-import React, { Dispatch, SetStateAction, useContext, useMemo } from "react";
+import React, { Dispatch, SetStateAction, useContext } from "react";
 import { ThemeContext } from "@/context/context";
 import { useQuery } from "@tanstack/react-query";
-import { fetchAllCountries } from "@/server/actions";
+import { fetchCountries } from "@/server/actions";
 import { CircularProgress } from "@mui/joy";
 import { Region } from "../../pages";
 import CountryCard from "../CountryCard";
@@ -11,6 +11,9 @@ interface SectionElements {
   setShowFilter: Dispatch<SetStateAction<boolean>>;
   selectedContinent: Region | undefined;
   changeContinent: Dispatch<SetStateAction<Region | undefined>>;
+  searchValue: string;
+  changeSearchValue: Dispatch<SetStateAction<string>>;
+  debouncedSearchTerm: string;
 }
 
 interface Country {
@@ -27,6 +30,9 @@ function MainSection({
   setShowFilter,
   selectedContinent,
   changeContinent,
+  searchValue,
+  changeSearchValue,
+  debouncedSearchTerm,
 }: SectionElements) {
   function displayFilter(): void {
     if (showFilter) {
@@ -38,8 +44,8 @@ function MainSection({
   let currentTheme = useContext(ThemeContext);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["countries"],
-    queryFn: fetchAllCountries,
+    queryKey: ["countries", debouncedSearchTerm],
+    queryFn: () => fetchCountries(debouncedSearchTerm),
   });
 
   function chooseContinent(region: Region): void {
@@ -67,7 +73,9 @@ function MainSection({
           </label>
           <input
             id="search_tab"
-            type="text"
+            type="search"
+            value={searchValue}
+            onChange={(e) => changeSearchValue(e.target.value)}
             placeholder="Search for a country..."
           />
         </div>
@@ -104,7 +112,7 @@ function MainSection({
         <div className="app__section-loading-countries">
           <CircularProgress size="lg" variant="plain" />
         </div>
-      ) : data ? (
+      ) : data && data.length > 0 ? (
         <div className="app__section-grid-countries">
           {data
             .filter((country: Country) => {
@@ -130,8 +138,8 @@ function MainSection({
             })}
         </div>
       ) : (
-        <div>
-          <p>An Error occured and the data has not been fetched correctly</p>
+        <div className="app__section-error">
+          <p>Something went wrong</p>
         </div>
       )}
     </div>
