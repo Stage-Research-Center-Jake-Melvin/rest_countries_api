@@ -9,6 +9,11 @@ interface CountryCardProps {
   countryCapital: string[];
   countryFlag: string;
 }
+export const formatCapitalsDisplay = (capitals: string[]): string => {
+  if (!capitals || capitals.length === 0) return "";
+
+  return capitals.join(", ");
+};
 
 function CountryCard({
   countryCode,
@@ -18,14 +23,7 @@ function CountryCard({
   countryCapital,
   countryFlag,
 }: CountryCardProps) {
-
   let currentTheme = useContext(ThemeContext);
-  
-  const formatCapitalsDisplay = (capitals: string[]): string => {
-    if (!capitals || capitals.length === 0) return "";
-
-    return capitals.join(", ");
-  };
 
   return (
     <div className="app__country-card">

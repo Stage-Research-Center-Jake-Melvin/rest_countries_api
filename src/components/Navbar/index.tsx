@@ -8,7 +8,6 @@ interface NavbarProps {
 }
 
 
-function changeMode(): void {}
 function NavBar({ toggleFunction }: NavbarProps) {
   let currentTheme = useContext(ThemeContext);
   function changeMode(): void {

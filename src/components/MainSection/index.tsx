@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useContext } from "react";
+import Link from "next/link";
 import { ThemeContext } from "@/context/context";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCountries } from "@/server/actions";
@@ -126,14 +127,16 @@ function MainSection({
             })
             .map((country: Country) => {
               return (
-                <CountryCard
-                  countryFlag={country.flags["png"]}
-                  countryName={country.name["common"]}
-                  countryCode={country["cca3"]}
-                  countryPopulation={country.population}
-                  countryRegion={country.region}
-                  countryCapital={country.capital}
-                />
+                <Link href={`country/${country["cca3"]}`}>
+                  <CountryCard
+                    countryFlag={country.flags["png"]}
+                    countryName={country.name["common"]}
+                    countryCode={country["cca3"]}
+                    countryPopulation={country.population}
+                    countryRegion={country.region}
+                    countryCapital={country.capital}
+                  />
+                </Link>
               );
             })}
         </div>

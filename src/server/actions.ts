@@ -27,3 +27,20 @@ export async function fetchCountries(searchTerm: string): Promise<any> {
     return { error: error };
   }
 }
+
+export async function searchCountryByCode(code: string): Promise<any> {
+  try {
+    const response = await fetch(
+      `https://restcountries.com/v3.1/alpha/${code}`
+    );
+    if (!response.ok) {
+      throw new Error(
+        "Unable to fetch data, please check your internet connection"
+      );
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return { error: error };
+  }
+}
