@@ -9,6 +9,7 @@ import "../styles/main_section.css";
 import "../styles/country_card.css";
 import "../styles/detail_page.css";
 import "../styles/border_country_box.css";
+import { themeClassModifier } from "@/utils";
 
 export type Theme = "Dark Mode" | "Light Mode";
 
@@ -19,11 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeContext.Provider value={currentTheme}>
-        <main
-          className={`app__main ${
-            currentTheme == "Dark Mode" ? "container_dark" : "container_light"
-          }`}
-        >
+        <main className={`app__main ${themeClassModifier(currentTheme)}`}>
           <NavBar toggleFunction={setCurrentTheme} />
           <Component {...pageProps} />
         </main>

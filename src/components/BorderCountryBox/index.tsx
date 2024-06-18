@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ThemeContext } from "@/context/context";
 import { searchCountryByCode } from "@/server/actions";
 import { CircularProgress } from "@mui/joy";
+import { themeClassModifier } from "@/utils";
 
 interface BorderCountryProps {
   borderCode: string;
@@ -22,11 +23,9 @@ function BorderCountryBox({ borderCode }: BorderCountryProps) {
         </div>
       ) : data && data.name ? (
         <div
-          className={`app__border-country-box ${
-            currentTheme == "Dark Mode"
-              ? "container_dark dark"
-              : "container_light light"
-          }`}
+          className={`app__border-country-box ${themeClassModifier(
+            currentTheme
+          )}`}
         >
           <p>{data.name.common}</p>
         </div>

@@ -6,6 +6,7 @@ import { fetchCountries } from "@/server/actions";
 import { CircularProgress } from "@mui/joy";
 import { Region } from "../../pages";
 import CountryCard from "../CountryCard";
+import { themeClassModifier } from "@/utils";
 
 interface SectionElements {
   showFilter: boolean;
@@ -54,20 +55,10 @@ function MainSection({
     setShowFilter(false);
   }
   return (
-    <div
-      className={`app__section ${
-        currentTheme == "Dark Mode" ? "section_dark" : "section_light"
-      }`}
-    >
-      <div
-        className={`app__section-full-search ${
-          currentTheme == "Dark Mode" ? "dark" : "light"
-        }`}
-      >
+    <div className={`app__section ${themeClassModifier(currentTheme, 1)}`}>
+      <div className={`app__section-full-search`}>
         <div
-          className={`app__section-search ${
-            currentTheme == "Dark Mode" ? "container_dark" : "container_light"
-          }`}
+          className={`app__section-search ${themeClassModifier(currentTheme)}`}
         >
           <label htmlFor="search_tab">
             <i className="fa-solid fa-magnifying-glass"></i>
@@ -83,9 +74,9 @@ function MainSection({
         <div className={`app__section-filter`}>
           <div
             onClick={displayFilter}
-            className={`app__section-filter-main ${
-              currentTheme == "Dark Mode" ? "container_dark" : "container_light"
-            }`}
+            className={`app__section-filter-main ${themeClassModifier(
+              currentTheme
+            )}`}
           >
             <p>{`${
               selectedContinent != undefined
@@ -96,9 +87,9 @@ function MainSection({
           </div>
           <div
             style={{ display: `${showFilter ? "flex" : "none"}` }}
-            className={`app__section-filter-content ${
-              currentTheme == "Dark Mode" ? "container_dark" : "container_light"
-            }`}
+            className={`app__section-filter-content ${themeClassModifier(
+              currentTheme
+            )}`}
           >
             <p onClick={() => chooseContinent("All")}>All</p>
             <p onClick={() => chooseContinent("Africa")}>Africa</p>
@@ -131,7 +122,6 @@ function MainSection({
                   <CountryCard
                     countryFlag={country.flags["png"]}
                     countryName={country.name["common"]}
-                    countryCode={country["cca3"]}
                     countryPopulation={country.population}
                     countryRegion={country.region}
                     countryCapital={country.capital}

@@ -7,6 +7,7 @@ import { searchCountryByCode } from "@/server/actions";
 import { ThemeContext } from "@/context/context";
 import { CircularProgress } from "@mui/joy";
 import { formatCapitalsDisplay } from "@/components/CountryCard";
+import { themeClassModifier } from "@/utils";
 
 function DetailPage() {
   const router = useRouter();
@@ -17,18 +18,10 @@ function DetailPage() {
   });
   let currentTheme = useContext(ThemeContext);
   return (
-    <div
-      className={`app__detail ${
-        currentTheme == "Dark Mode"
-          ? "section_dark dark"
-          : "section_light light"
-      }`}
-    >
+    <div className={`app__detail ${themeClassModifier(currentTheme, 1)}`}>
       <div
         onClick={() => router.back()}
-        className={`app__detail-back ${
-          currentTheme == "Dark Mode" ? "container_dark" : "container_light"
-        }`}
+        className={`app__detail-back ${themeClassModifier(currentTheme)}`}
       >
         <i className="fa-solid fa-arrow-left"></i>
         <p>Back</p>

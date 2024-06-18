@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { ThemeContext } from "@/context/context";
+import { themeClassModifier } from "@/utils";
 
 interface CountryCardProps {
-  countryCode: string;
   countryName: string;
   countryPopulation: number;
   countryRegion: string;
@@ -16,7 +16,6 @@ export const formatCapitalsDisplay = (capitals: string[]): string => {
 };
 
 function CountryCard({
-  countryCode,
   countryName,
   countryPopulation,
   countryRegion,
@@ -31,11 +30,9 @@ function CountryCard({
         <img src={countryFlag} alt={countryName} />
       </div>
       <div
-        className={`app__country-card_info-section ${
-          currentTheme == "Dark Mode"
-            ? "container_dark"
-            : "container_light light"
-        }`}
+        className={`app__country-card_info-section ${themeClassModifier(
+          currentTheme
+        )}`}
       >
         <h2 className="app__country-card-title">{countryName}</h2>
         <p>
