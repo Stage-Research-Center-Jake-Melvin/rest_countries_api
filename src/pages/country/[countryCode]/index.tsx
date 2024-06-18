@@ -24,76 +24,82 @@ function DetailPage() {
           : "section_light light"
       }`}
     >
-      <Link href="/">
-        <div
-          className={`app__detail-back ${
-            currentTheme == "Dark Mode" ? "container_dark" : "container_light"
-          }`}
-        >
-          <i className="fa-solid fa-arrow-left"></i>
-          <p>Back</p>
-        </div>
-      </Link>
+      <div
+        onClick={() => router.back()}
+        className={`app__detail-back ${
+          currentTheme == "Dark Mode" ? "container_dark" : "container_light"
+        }`}
+      >
+        <i className="fa-solid fa-arrow-left"></i>
+        <p>Back</p>
+      </div>
 
       {isLoading ? (
         <div className="app__section-loading-countries">
           <CircularProgress size="lg" variant="plain" />
         </div>
-      ) : data && data[0] && data[0].languages ? (
+      ) : data && data.languages ? (
         <div className="app__detail-country-infos">
           <div className="app__detail-country-image">
-            <img src={data[0].flags["png"]} alt="Country Image" />
+            <img src={data.flags["png"]} alt="Country Image" />
           </div>
           <div className="app__detail-country-details">
-            <p className="app__detail-country-name">{data[0].name["common"]}</p>
+            <p className="app__detail-country-name">{data.name["common"]}</p>
             <div className="app__detail-info-box">
               <div className="app__detail-info">
                 <p>
                   <span>Native Name: </span>
                   {
-                    data[0].name.nativeName[
-                      Object.keys(data[0].name.nativeName)[0]
+                    data.name.nativeName[
+                      Object.keys(
+                        data.name.nativeName
+                      )[0] as keyof typeof data.name.nativeName
                     ].official
                   }
                 </p>
                 <p>
                   <span>Population: </span>
-                  {data[0].population}
+                  {data.population}
                 </p>
                 <p>
                   <span>Region: </span>
-                  {data[0].region}
+                  {data.region}
                 </p>
                 <p>
                   <span>Sub Region: </span>
-                  {data[0].subregion}
+                  {data.subregion}
                 </p>
                 <p>
                   <span>Capital: </span>
-                  {formatCapitalsDisplay(data[0].capital)}
+                  {formatCapitalsDisplay(data.capital)}
                 </p>
               </div>
               <div className="app__detail-info">
                 <p>
                   <span>Top Level Domain: </span>
-                  {formatCapitalsDisplay(data[0].tld)}
+                  {formatCapitalsDisplay(data.tld)}
                 </p>
                 <p>
                   <span>Currencies: </span>
-                  {data[0].currencies[Object.keys(data[0].currencies)[0]].name}
+                  {
+                    data.currencies[
+                      Object.keys(
+                        data.currencies
+                      )[0] as keyof typeof data.currencies
+                    ].name
+                  }
                 </p>
                 <p>
                   <span>Languages: </span>
-                  {data[0] && data[0].languages ? (
+                  {data && data.languages ? (
                     <>
-                      {Object.entries(data[0].languages).map(
+                      {Object.entries(data.languages).map(
                         ([key, value], index) => (
                           <em
                             className="app__detail-country-languages"
                             key={key}
                           >
-                            {index <
-                            Object.keys(data[0].languages).length - 1 ? (
+                            {index < Object.keys(data.languages).length - 1 ? (
                               <>{value as string}, </> // Assert value as string
                             ) : (
                               (value as string)
@@ -108,13 +114,13 @@ function DetailPage() {
                 </p>
               </div>
             </div>
-            {data[0].borders ? (
+            {data.borders ? (
               <div className="app__detail-borders">
                 <p>
                   <span>Border Countries: </span>
                 </p>
                 <div className={`app__detail_border_countries`}>
-                  {data[0].borders.map((border: string) => {
+                  {data.borders.map((border: string) => {
                     return (
                       <Link href={border}>
                         <BorderCountryBox borderCode={border} />

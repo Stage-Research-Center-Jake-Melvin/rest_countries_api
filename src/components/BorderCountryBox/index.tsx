@@ -20,7 +20,7 @@ function BorderCountryBox({ borderCode }: BorderCountryProps) {
         <div className="app__section-loading-countries">
           <CircularProgress size="lg" variant="plain" />
         </div>
-      ) : data && data[0].name ? (
+      ) : data && data.name ? (
         <div
           className={`app__border-country-box ${
             currentTheme == "Dark Mode"
@@ -28,7 +28,7 @@ function BorderCountryBox({ borderCode }: BorderCountryProps) {
               : "container_light light"
           }`}
         >
-          <p>{data[0].name.common}</p>
+          <p>{data.name.common}</p>
         </div>
       ) : (
         <div className="app__section-error">
