@@ -1,29 +1,144 @@
-/*Get all the countries using */
-export async function fetchCountries(searchTerm: string): Promise<any> {
-  try {
-    if (searchTerm == "") {
-      const response = await fetch("https://restcountries.com/v3.1/all");
-      if (!response.ok) {
-        throw new Error(
-          "Unable to Fetch Data, Please check your internet connection"
-        );
-      }
+import Error, { ErrorProps } from "next/error";
 
-      const data = await response.json();
-      return data;
-    } else {
-      const response = await fetch(
-        `https://restcountries.com/v3.1/name/${searchTerm}`
-      );
-      if (!response.ok) {
-        throw new Error(
-          "Unable to fetch data, PLease check your internet connection"
-        );
-      }
-      const data = await response.json();
-      return data;
-    }
-  } catch (error) {
-    return { error: error };
+/*Get all the countries using */
+export interface CountryResponse {
+  name: Name;
+  tld: string[];
+  cca2: string;
+  ccn3: string;
+  cca3: string;
+  cioc: string;
+  independent: boolean;
+  status: string;
+  unMember: boolean;
+  currencies: Currencies;
+  idd: Idd;
+  capital: string[];
+  altSpellings: string[];
+  region: string;
+  subregion: string;
+  languages: Languages;
+  translations: { [key: string]: Translation };
+  latlng: number[];
+  landlocked: boolean;
+  borders: string[];
+  area: number;
+  demonyms: Demonyms;
+  flag: string;
+  maps: Maps;
+  population: number;
+  gini: Gini;
+  fifa: string;
+  car: Car;
+  timezones: string[];
+  continents: string[];
+  flags: Flags;
+  coatOfArms: CoatOfArms;
+  startOfWeek: string;
+  capitalInfo: CapitalInfo;
+  postalCode: PostalCode;
+}
+
+export interface ApiError {
+  error: string;
+}
+export interface CapitalInfo {
+  latlng: number[];
+}
+
+export interface Car {
+  signs: string[];
+  side: string;
+}
+
+export interface CoatOfArms {
+  png: string;
+  svg: string;
+}
+
+export interface Currencies {
+  EUR: Eur;
+}
+
+export interface Eur {
+  name: string;
+  symbol: string;
+}
+
+export interface Demonyms {
+  eng: Eng;
+  fra: Eng;
+}
+
+export interface Eng {
+  f: string;
+  m: string;
+}
+
+export interface Flags {
+  png: string;
+  svg: string;
+  alt: string;
+}
+
+export interface Gini {
+  "2018": number;
+}
+
+export interface Idd {
+  root: string;
+  suffixes: string[];
+}
+
+export interface Languages {
+  est: string;
+}
+
+export interface Maps {
+  googleMaps: string;
+  openStreetMaps: string;
+}
+
+export interface Name {
+  common: string;
+  official: string;
+  nativeName: NativeName;
+}
+
+export interface NativeName {
+  est: Translation;
+}
+
+export interface Translation {
+  official: string;
+  common: string;
+}
+
+export interface PostalCode {
+  format: string;
+  regex: string;
+}
+
+export async function fetchCountries(
+  searchTerm: string
+): Promise<CountryResponse[]> {
+  if (searchTerm === "") {
+    const response = await fetch("https://restcountries.com/v3.1/all");
+    const data = await response.json();
+    return data;
+  } else {
+    const response = await fetch(
+      `https://restcountries.com/v3.1/name/${searchTerm}`
+    );
+    const data = await response.json();
+    return data;
   }
+}
+
+export async function searchCountryByCode(
+  code: string
+): Promise<CountryResponse> {
+  const response = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
+  const data = await response.json();
+  return data[0];
 }

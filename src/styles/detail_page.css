@@ -1,0 +1,92 @@
+.app__detail {
+  padding: 2rem 4rem;
+  min-height: 100vh;
+  font-size: var(--detail-page-size);
+  font-family: var(--font-family);
+}
+.app__detail-country-name {
+  font-size: 3em;
+  font-weight: bold;
+}
+.app__detail-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.2rem 2rem;
+  width: 8rem;
+  height: 0.5rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+}
+.app__detail-country-image {
+  width: 40rem;
+  height: 25rem;
+}
+.app__detail-country-image img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.app__detail-info p {
+  margin-top: 0.7rem;
+}
+em {
+  font-style: normal;
+}
+.app__detail-country-infos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5rem;
+  gap: 3rem;
+}
+.app__detail-info span {
+  font-weight: bold;
+}
+.app__detail-country-languages {
+  font-weight: 500;
+}
+.app__detail-info-box {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 5rem;
+}
+.app__detail_border_countries {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+.app__detail-borders {
+  padding: 2rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.app__detail-borders span {
+  font-weight: bold;
+}
+/*Managing the responsivness of the page*/
+@media screen and (max-width: 71.875rem) {
+  .app__detail-country-infos {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 43.75rem) {
+  .app__detail-country-image {
+    width: 100%;
+    height: auto;
+  }
+  .app__detail-info-box {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 28.125rem) {
+  .app__detail {
+    padding: 1rem 1rem;
+  }
+}
